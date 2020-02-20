@@ -50,35 +50,37 @@
             // 
             // txtCity
             // 
-            this.txtCity.Location = new System.Drawing.Point(161, 34);
+            this.txtCity.Location = new System.Drawing.Point(124, 34);
+            this.txtCity.MaxLength = 50;
             this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(100, 20);
+            this.txtCity.Size = new System.Drawing.Size(169, 20);
             this.txtCity.TabIndex = 0;
             // 
             // txtState
             // 
-            this.txtState.Location = new System.Drawing.Point(387, 34);
+            this.txtState.Location = new System.Drawing.Point(374, 34);
+            this.txtState.MaxLength = 50;
             this.txtState.Name = "txtState";
-            this.txtState.Size = new System.Drawing.Size(100, 20);
+            this.txtState.Size = new System.Drawing.Size(161, 20);
             this.txtState.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(77, 40);
+            this.label1.Location = new System.Drawing.Point(77, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(24, 13);
+            this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 3;
-            this.label1.Text = "City";
+            this.label1.Text = "City:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(317, 41);
+            this.label2.Location = new System.Drawing.Point(317, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
+            this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "State";
+            this.label2.Text = "State:";
             // 
             // picWeather
             // 
