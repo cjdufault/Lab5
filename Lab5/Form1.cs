@@ -19,21 +19,73 @@ namespace Lab5
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
+            if (!ValidateString(txtObjectName.Text, out string objectName, out string errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Object Name Error");
+                txtEarthWeight.Focus();
+                return;
+            }
+
+            if (!ValidatePositiveDouble(txtEarthWeight.Text, out double earthWeight, out errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Earth Weight Error");
+                txtEarthWeight.Focus();
+                return;
+            }
+            
+            double convertFactor = .377;
+            double marsWeight = earthWeight * convertFactor;
+            txtMarsWeight.Text = String.Format("{0} weighs {1} on Mars", objectName, marsWeight);
+        }
+
+        private bool ValidatePositiveDouble(string text, out double number, out string errorMessage)
+        {
+            errorMessage = null;
+            number = 0;
+
             try
             {
-                double earthWeight = Double.Parse(txtEarthWeight.Text);
-                double convertFactor = .377;
-                double marsWeight = earthWeight * convertFactor;
-                txtMarsWeight.Text = marsWeight.ToString();
+                number = double.Parse(text);
+
+                if (number >= 0) // check if number is positive
+                {
+                    return true;
+                }
+                else
+                {
+                    errorMessage = "Enter a positive number";
+                    return false;
+                }
             }
-            catch (FormatException)
+            catch (FormatException) // check if input is a number
             {
-                MessageBox.Show("Enter numbers only", "Error");
+                errorMessage = "Enter a number";
+                return false;
             }
-            catch (OverflowException)
+            catch (OverflowException) // check if number is too large
             {
-                MessageBox.Show("Enter a smaller number", "Error");
+                errorMessage = "Enter a smaller number";
+                return false;
             }
+        }
+        private bool ValidateString(string text, out string name, out string errorMessage)
+        {
+            errorMessage = null;
+            name = text;
+
+            if (String.IsNullOrEmpty(text)) // check if a name has been typed
+            {
+                errorMessage = "Object Name field is empty";
+                return false;
+            }
+
+            if (text.Length < 2) // check if name is long enough
+            {
+                errorMessage = "Enter at least 2 letters";
+                return false;
+            }
+
+            return true;
         }
     }
 }
