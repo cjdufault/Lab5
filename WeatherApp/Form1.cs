@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
+using System.Diagnostics;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WeatherApp
 {
@@ -42,30 +44,85 @@ namespace WeatherApp
             btnGetWeather.Enabled = false; // to make sure no request is made while a request is in progress
 
             // make request and get text back
-            string weather = GetWeatherText(city, state);
-            lblWeather.Text = weather;
+            if (!GetWeatherText(city, state, out string weather, out error))
+            {
+                lblWeather.Text = error;
+                btnGetWeather.Enabled = true;
+                return;
+            }
+
+            lblWeather.Text = weather; // show the weather text
+
+            // make request and get image back
+            if (!GetWeatherPic(city, state, out Image image, out error))
+            {
+                picWeather.Image = null;
+                btnGetWeather.Enabled = true;
+                return;
+            }
+
+            picWeather.Image = image; // show the image
 
             btnGetWeather.Enabled = true;
         }
 
-        private string GetWeatherText(string city, string state)
+        private bool GetWeatherText(string city, string state, out string weatherText, out string errorMessage)
         {
             string requestUrl = String.Format("{0}text?city={1}&state={2}", BaseUrl, city, state); // make url for request
-            string weatherText;
+            Debug.WriteLine(requestUrl);
+
+            weatherText = null;
+            errorMessage = null;
 
             using (WebClient client = new WebClient())
             {
                 try
                 {
                     weatherText = client.DownloadString(requestUrl);
+                    Debug.WriteLine(weatherText);
                 }
-                catch (WebException)
+                catch (WebException e)
                 {
-                    weatherText = "No forcast found";
+                    Debug.WriteLine(e.StackTrace);
+                    errorMessage = e.Message;
+                    Debug.WriteLine(errorMessage);
+                    return false;
                 }
             }
 
-            return weatherText;
+            return true;
+        }
+
+        private bool GetWeatherPic(string city, string state, out Image weatherImage, out string errorMessage)
+        {
+            string requestUrl = String.Format("{0}photo?city={1}&state={2}", BaseUrl, city, state); // make url for request 
+            Debug.WriteLine(requestUrl);
+
+            weatherImage = null;
+            errorMessage = null;
+
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    // create path to save image to
+                    string tempDirPath = Path.GetTempPath();
+                    string weatherPicPath = Path.Combine(tempDirPath + "weather_image.jpeg");
+                    Debug.WriteLine(weatherPicPath);
+
+                    client.DownloadFile(requestUrl, weatherPicPath); // download image
+                    weatherImage = Image.FromFile(weatherPicPath);
+                }
+                catch (WebException e)
+                {
+                    Debug.WriteLine(e.StackTrace);
+                    errorMessage = e.Message;
+                    Debug.WriteLine(errorMessage);
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private bool ValidateString(string text, string fieldName, out string errorMessage)
