@@ -40,7 +40,7 @@
             // 
             // btnGetWeather
             // 
-            this.btnGetWeather.Location = new System.Drawing.Point(526, 32);
+            this.btnGetWeather.Location = new System.Drawing.Point(541, 32);
             this.btnGetWeather.Name = "btnGetWeather";
             this.btnGetWeather.Size = new System.Drawing.Size(107, 23);
             this.btnGetWeather.TabIndex = 2;
@@ -50,7 +50,7 @@
             // 
             // txtCity
             // 
-            this.txtCity.Location = new System.Drawing.Point(156, 35);
+            this.txtCity.Location = new System.Drawing.Point(140, 35);
             this.txtCity.MaxLength = 50;
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(149, 20);
@@ -59,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(123, 38);
+            this.label1.Location = new System.Drawing.Point(107, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 3;
@@ -68,11 +68,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(318, 37);
+            this.label2.Location = new System.Drawing.Point(296, 37);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "State:";
+            this.label2.Text = "State/Territory:";
             // 
             // picWeather
             // 
@@ -96,9 +96,9 @@
             // 
             this.cmboStates.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboStates.FormattingEnabled = true;
-            this.cmboStates.Location = new System.Drawing.Point(359, 33);
+            this.cmboStates.Location = new System.Drawing.Point(374, 33);
             this.cmboStates.Name = "cmboStates";
-            this.cmboStates.Size = new System.Drawing.Size(137, 21);
+            this.cmboStates.Size = new System.Drawing.Size(147, 21);
             this.cmboStates.TabIndex = 7;
             // 
             // Form1
