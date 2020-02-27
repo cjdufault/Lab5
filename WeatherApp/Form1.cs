@@ -15,29 +15,36 @@ namespace WeatherApp
 {
     public partial class Form1 : Form
     {
-        string BaseUrl = "http://weather-csharp.herokuapp.com/";
+        readonly string BaseUrl = "http://weather-csharp.herokuapp.com/";
+        readonly string[] States = {"Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+                                    "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia",
+                                    "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+                                    "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+                                    "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+                                    "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+                                    "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+                                    "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+                                    "West Virginia", "Wisconsin", "Wyoming" };
 
         public Form1()
         {
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cmboStates.Items.AddRange(States);
+        }
+
         private void btnGetWeather_Click(object sender, EventArgs e)
         {
             string city = txtCity.Text;
-            string state = txtState.Text;
+            string state = cmboStates.SelectedText;
 
-            if (!ValidateString(city, "City", out string error))
+            if (!ValidateCity(city, out string error))
             {
                 lblWeather.Text = error;
                 txtCity.Focus();
-                return;
-            }
-
-            if (!ValidateString(state, "State", out error))
-            {
-                lblWeather.Text = error;
-                txtState.Focus();
                 return;
             }
 
@@ -125,19 +132,19 @@ namespace WeatherApp
             return true;
         }
 
-        private bool ValidateString(string text, string fieldName, out string errorMessage)
+        private bool ValidateCity(string text, out string errorMessage)
         {
             errorMessage = null;
 
             if (String.IsNullOrEmpty(text))
             {
-                errorMessage = fieldName + " field is empty";
+                errorMessage = "City field is empty";
                 return false;
             }
 
             if (text.Length < 2)
             {
-                errorMessage = "Value in " + fieldName + " field is too short";
+                errorMessage = "Value in City field is too short";
                 return false;
             }
 
